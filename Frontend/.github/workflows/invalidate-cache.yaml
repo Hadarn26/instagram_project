@@ -1,0 +1,24 @@
+name: Invalidate CloudFront cache
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
+
+jobs:
+  invalidate-cache:
+    environment: inputs.environment
+    runs-on: [self-hosted, aws, dev-il]
+    steps:
+      - name: Invalidate cache
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id ${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"

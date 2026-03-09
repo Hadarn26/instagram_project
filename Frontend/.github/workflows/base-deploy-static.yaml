@@ -1,0 +1,59 @@
+name: Deploy static webapp
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      project_name:
+        type: string
+        required: true
+
+jobs:
+  build:
+    environment: inputs.environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          VITE_AZURE_REDIRECT_URI: ${{ vars.AZURE_REDIRECT_URI }}
+          VITE_AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          VITE_AZURE_SCOPES: ${{ vars.AZURE_SCOPES }}
+          VITE_SERVER_BASE_URL: ${{ vars.SERVER_BASE_URL }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.project_name }}-${{ github.sha }}
+          path: ./dist/**
+
+  deploy:
+    environment: dev
+    runs-on: [self-hosted, aws, ec2runner, "${{ vars.RUNNER_TAG }}"]
+    needs: build
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.project_name }}-${{ github.sha }}
+          path: ./dist
+
+      - name: Upload files to S3
+        run: |
+          aws s3 cp ./dist s3://${{ vars.S3_BUCKET_NAME }} --recursive
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"

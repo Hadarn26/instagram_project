@@ -1,0 +1,15 @@
+name: Dev - deploy static webapp
+
+on:
+  # push:
+  #   branches:
+  #     - dev
+  workflow_dispatch:
+
+jobs:
+  deploy-static-webapp:
+    uses: ./.github/workflows/base-deploy-static.yaml
+    with:
+      environment: dev
+      project_name: logmar-template
+    secrets: inherit

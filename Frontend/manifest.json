@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/web-manifest.json",
+  "id": "logmaretemplate.dev.digital.idf.il",
+  "name": "פרויקט לדוגמה",
+  "short_name": "פרויקט לדוגמה",
+  "description": "פרויקט לדוגמה",
+  "lang": "he",
+  "dir": "rtl",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "orientation": "portrait"
+}
