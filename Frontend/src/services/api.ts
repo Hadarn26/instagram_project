@@ -5,9 +5,11 @@ const api = axios.create({
 });
 
 export const getPosts = async () => {
+  console.log("calling api");
+
   const response = await api.get("/api/posts");
 
   console.log(response.data);
 
-  return response.data.data ?? [];
+  return response.data ?? [];
 };
