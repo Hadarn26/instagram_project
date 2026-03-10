@@ -11,10 +11,13 @@ type PostCardProps = {
   post: {
     id: number;
     imageUrl: string;
+    description: string;
     user?: {
+      id?: number;
       username?: string;
+      profileImg?: string;
     };
-    likes?: unknown[];
+    likesCount: number;
   };
 };
 
@@ -37,7 +40,7 @@ export default function PostCard({ post }: PostCardProps) {
           py: 1,
         }}
       >
-        <Avatar sx={{ width: 32, height: 32 }} />
+        <Avatar src={post.user?.profileImg} sx={{ width: 32, height: 32 }} />
         <Typography variant="body2" fontWeight={500}>
           {post.user?.username || "user"}
         </Typography>
@@ -56,7 +59,7 @@ export default function PostCard({ post }: PostCardProps) {
 
       <CardContent sx={{ py: 1 }}>
         <Typography variant="body2">
-          ❤️ {post.likes?.length || 0} likes
+          ❤️ {post.likesCount} likes
         </Typography>
       </CardContent>
     </Card>
