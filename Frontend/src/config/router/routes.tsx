@@ -17,6 +17,6 @@ export const routes: RouteObject[] = [
   },
   {
     path: ROUTES.Profile,
-   // lazy: () => import("../../components/pages/profile/Profile"),
+    lazy: () => import("../../components/pages/profile/Profile"),
   },
 ];
