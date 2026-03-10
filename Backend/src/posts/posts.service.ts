@@ -24,13 +24,12 @@ export class PostsService {
     return posts.map((post) => ({
       id: post.id,
       imageUrl: post.imageUrl,
-      description: post.description,
       user: post.user,
       likesCount: post.likes ? post.likes.length : 0,
     }));
   }
 
-  async createPost(imageUrl: string, description: string) {
+  async createPost(imageUrl: string) {
     const hardcodedUserId = 1;
 
     const user = await this.userRepository.findOne({
@@ -43,7 +42,6 @@ export class PostsService {
 
     const newPost = this.postRepository.create({
       imageUrl,
-      description,
       user,
     });
 

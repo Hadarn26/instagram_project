@@ -13,7 +13,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: ROUTES.CreatePost,
-    //lazy: () => import("../../components/pages/create/CreatePost"),
+    lazy: () => import("../../components/pages/create/CreatePost"),
   },
   {
     path: ROUTES.Profile,

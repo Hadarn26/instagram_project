@@ -3,9 +3,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import PersonIcon from "@mui/icons-material/Person";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../config/router/routes";
 
 export default function BottomNav() {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   return (
     <Paper
@@ -23,9 +26,20 @@ export default function BottomNav() {
         onChange={(_, newValue) => setValue(newValue)}
         showLabels={false}
       >
-        <BottomNavigationAction icon={<HomeIcon />} />
-        <BottomNavigationAction icon={<AddBoxIcon />} />
-        <BottomNavigationAction icon={<PersonIcon />} />
+        <BottomNavigationAction
+          icon={<HomeIcon />}
+          onClick={() => navigate(ROUTES.HOME)}
+        />
+
+        <BottomNavigationAction
+          icon={<AddBoxIcon />}
+          onClick={() => navigate(ROUTES.CreatePost)}
+        />
+
+        <BottomNavigationAction
+          icon={<PersonIcon />}
+          onClick={() => navigate(ROUTES.Profile)}
+        />
       </BottomNavigation>
     </Paper>
   );
