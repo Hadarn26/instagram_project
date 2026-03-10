@@ -37,7 +37,6 @@ export class UsersService {
     return posts.map(post => ({
       id: post.id,
       imageUrl: post.imageUrl,
-      description: post.description,
       likesCount: post.likes.length
     }))
   }

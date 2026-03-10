@@ -1,24 +1,49 @@
 import { Box, Typography } from "@mui/material";
+import { ReactNode } from "react";
 
-export default function Header() {
+type HeaderProps = {
+  title: string;
+  leftIcon?: ReactNode;
+};
+
+export default function Header({ title, leftIcon }: HeaderProps) {
   return (
     <Box
       sx={{
-        textAlign: "center",
-        py: 2,
+        display: "flex",
+        alignItems: "center",
+        height: 56,
         borderBottom: "1px solid #ddd",
-        mb: 2,
         backgroundColor: "#fff",
+        px: 1
       }}
     >
-      <Typography
+      {/* left icon */}
+      <Box
         sx={{
-          fontFamily: "cursive",
-          fontSize: "22px",
+          width: 40,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-        instagram
+        {leftIcon}
+      </Box>
+
+      {/* title */}
+      <Typography
+        sx={{
+          flex: 1,
+          textAlign: "center",
+          fontFamily: "Grand Hotel, cursive",
+          fontSize: 30
+        }}
+      >
+        {title}
       </Typography>
+
+      {/* spacer כדי לשמור על center */}
+      <Box sx={{ width: 40 }} />
     </Box>
   );
 }

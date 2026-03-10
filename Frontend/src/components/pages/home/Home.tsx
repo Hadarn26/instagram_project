@@ -6,13 +6,10 @@ import BottomNav from "../../BottomNav/BottomNav";
 import PostCard from "../../Posts/PostCard";
 
 function Home() {
-  console.log("Home render");
   const { data: posts = [], isLoading, isError } = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
   });
-
-  console.log("posts:", posts);
 
   return (
     <Box
@@ -25,7 +22,7 @@ function Home() {
         backgroundColor: "#fff",
       }}
     >
-      <Header />
+      <Header title="instagram" />
 
       <Box
         sx={{

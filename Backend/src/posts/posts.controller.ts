@@ -13,8 +13,7 @@ export class PostsController {
   @Post()
   async createPost(
     @Body('imageUrl') imageUrl: string,
-    @Body('description') description: string,
   ) {
-    return await this.postsService.createPost(imageUrl, description);
+    return await this.postsService.createPost(imageUrl);
   }
 }
