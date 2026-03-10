@@ -40,4 +40,21 @@ export class UsersService {
       likesCount: post.likes.length
     }))
   }
+
+  async getUser(userId: number) {
+
+  const user = await this.userRepository.findOne({
+    where: { id: userId }
+  })
+
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  return {
+    id: user.id,
+    username: user.username,
+    profileImg: user.profileImg
+  }
+}
 }

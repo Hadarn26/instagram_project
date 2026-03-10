@@ -17,3 +17,8 @@ export const createPost = async (imageUrl: string) => {
 
   return response.data ?? [];
 };
+
+export const getCurrentUser = async () => {
+  const { data } = await api.get("/api/users/1");
+  return data;
+};
