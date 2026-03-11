@@ -11,7 +11,7 @@ function Home() {
   const { data: user } = useCurrentUser();
 
   const { data: posts = [], isLoading, isError } = useQuery({
-    queryKey: ["posts" , user?.id],
+    queryKey: ["posts", user?.id],
     queryFn: () => getPosts(user.id),
     enabled: !!user,
   });

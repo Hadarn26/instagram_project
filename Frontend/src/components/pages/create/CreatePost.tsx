@@ -1,8 +1,8 @@
 import {
-  Box,
-  TextField,
-  Button,
-  IconButton
+    Box,
+    TextField,
+    Button,
+    IconButton
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
@@ -13,69 +13,67 @@ import { createPost } from "../../../services/api";
 import { useCurrentUser } from "../../../hooks/core/useCurrentUser";
 
 function CreatePost() {
-  const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState("");
+    const navigate = useNavigate();
+    const [imageUrl, setImageUrl] = useState("");
 
-  const { data: user } = useCurrentUser();
+    const { data: user } = useCurrentUser();
 
-const handleCreate = async () => {
-  if (!user) return;
+    const handleCreate = async () => {
+        if (!user) return;
 
-  try {
-    await createPost(imageUrl, user.id);
-    navigate(ROUTES.HOME);
-  } catch (error) {
-    console.error(error);
-  }
-};
+        try {
+            await createPost(imageUrl, user.id);
+            navigate(ROUTES.HOME);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-  return (
-    <Box
-      sx={{
-        maxWidth: 420,
-        margin: "0 auto",
-        minHeight: "100vh",
-        bgcolor: "white"
-      }}
-    >
-      {/* header */}
-     <Header
-       title="Create New Post"
-       leftIcon={
-         <IconButton onClick={() => navigate(ROUTES.HOME)}>
-           <CloseIcon />
-         </IconButton>
-       }
-    />
-
-      {/* form */}
-      <Box
-        sx={{
-          p: 3,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2
-        }}
-      >
-        <TextField
-          label="Photo url"
-          placeholder="Create a new post with the specified URL"
-          variant="standard"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          fullWidth
-        />
-
-        <Button
-          variant="contained"
-          disabled={!imageUrl}
-          onClick={handleCreate}
+    return (
+        <Box
+            sx={{
+                maxWidth: 420,
+                margin: "0 auto",
+                minHeight: "100vh",
+                bgcolor: "white"
+            }}
         >
-          CREATE
-        </Button>
-      </Box>
-    </Box>
-  );
+            <Header
+                title="Create New Post"
+                leftIcon={
+                    <IconButton onClick={() => navigate(ROUTES.HOME)}>
+                        <CloseIcon />
+                    </IconButton>
+                }
+            />
+
+            <Box
+                sx={{
+                    p: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2
+                }}
+            >
+                <TextField
+                    label="Photo url"
+                    placeholder="Create a new post with the specified URL"
+                    variant="standard"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    fullWidth
+                />
+
+                <Button
+                    variant="contained"
+                    disabled={!imageUrl}
+                    onClick={handleCreate}
+                >
+                    CREATE
+                </Button>
+            </Box>
+        </Box>
+    );
 }
 
 export { CreatePost as Component };

@@ -49,14 +49,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  // Swagger, enable only locally
-  // if (process.env.NODE_ENV !== 'production') {
-  //   setupSwagger(app);
-  // }
-
   const port = configService.get<string>('PORT') || 5216;
 
-  // Start server
   await app.listen(port);
   logger.log(`Server Started on port ${port}!`);
 }

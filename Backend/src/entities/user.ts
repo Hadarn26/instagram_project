@@ -5,18 +5,18 @@ import { Like } from "./like";
 @Entity()
 export class User {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  username: string;
+    @Column()
+    username: string;
 
-  @Column({ nullable: true })
-  profileImg: string;
+    @Column({ nullable: true })
+    profileImg: string;
 
-  @OneToMany(() => Post, post => post.user)
-  posts: Post[];
+    @OneToMany(() => Post, post => post.user)
+    posts: Post[];
 
-  @OneToMany(() => Like, like => like.user)
-  likes: Like[];
+    @OneToMany(() => Like, like => like.user)
+    likes: Like[];
 }

@@ -6,55 +6,55 @@ import { User } from '../entities/user'
 @Injectable()
 export class UsersService {
 
-  private postRepository: Repository<Post>
-  private userRepository: Repository<User>
+    private postRepository: Repository<Post>
+    private userRepository: Repository<User>
 
-  constructor(private dataSource: DataSource) {
-    this.postRepository = this.dataSource.getRepository(Post)
-    this.userRepository = this.dataSource.getRepository(User)
-  }
-
-  async getUserPosts(userId: number) {
-
-    const user = await this.userRepository.findOne({
-      where: { id: userId }
-    })
-
-    if (!user) {
-      throw new Error('User not found')
+    constructor(private dataSource: DataSource) {
+        this.postRepository = this.dataSource.getRepository(Post)
+        this.userRepository = this.dataSource.getRepository(User)
     }
 
-    const posts = await this.postRepository.find({
-      where: {
-        user: { id: userId }
-      },
-      relations: ['likes'],
-      order: {
-        id: 'DESC'
-      }
-    })
+    async getUserPosts(userId: number) {
 
-    return posts.map(post => ({
-      id: post.id,
-      imageUrl: post.imageUrl,
-      likesCount: post.likes.length
-    }))
-  }
+        const user = await this.userRepository.findOne({
+            where: { id: userId }
+        })
 
-  async getUser(userId: number) {
+        if (!user) {
+            throw new Error('User not found')
+        }
 
-  const user = await this.userRepository.findOne({
-    where: { id: userId }
-  })
+        const posts = await this.postRepository.find({
+            where: {
+                user: { id: userId }
+            },
+            relations: ['likes'],
+            order: {
+                id: 'DESC'
+            }
+        })
 
-  if (!user) {
-    throw new Error('User not found')
-  }
+        return posts.map(post => ({
+            id: post.id,
+            imageUrl: post.imageUrl,
+            likesCount: post.likes.length
+        }))
+    }
 
-  return {
-    id: user.id,
-    username: user.username,
-    profileImg: user.profileImg
-  }
-}
+    async getUser(userId: number) {
+
+        const user = await this.userRepository.findOne({
+            where: { id: userId }
+        })
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
+        return {
+            id: user.id,
+            username: user.username,
+            profileImg: user.profileImg
+        }
+    }
 }
