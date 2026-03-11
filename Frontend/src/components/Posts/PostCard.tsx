@@ -5,7 +5,14 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  IconButton,
 } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toggleLike } from "../../services/api";
+import { useCurrentUser } from "../../hooks/core/useCurrentUser";
+import { useState } from "react";
 
 type PostCardProps = {
   post: {
@@ -18,10 +25,33 @@ type PostCardProps = {
       profileImg?: string;
     };
     likesCount: number;
+    likedByCurrentUser: boolean;
   };
 };
 
 export default function PostCard({ post }: PostCardProps) {
+  const { data: user } = useCurrentUser();
+  const queryClient = useQueryClient();
+
+  const [likes, setLikes] = useState(post.likesCount);
+    const [liked, setLiked] = useState(post.likedByCurrentUser);
+
+  const mutation = useMutation({
+    mutationFn: () => toggleLike(post.id, user?.id),
+
+    onSuccess: (data) => {
+      setLiked(data.liked);
+      setLikes(data.likesCount);
+
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+
+  const handleLike = () => {
+    if (!user) return;
+    mutation.mutate();
+  };
+
   return (
     <Card
       sx={{
@@ -52,14 +82,22 @@ export default function PostCard({ post }: PostCardProps) {
         alt="post image"
         sx={{
           width: "100%",
-          aspectRatio: "1 / 1",
+          aspectRatio: "4 / 3",
           objectFit: "cover",
         }}
       />
 
       <CardContent sx={{ py: 1 }}>
+        <IconButton onClick={handleLike}>
+          {liked ? (
+            <FavoriteIcon sx={{ color: "red" }} />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
+        </IconButton>
+
         <Typography variant="body2">
-          ❤️ {post.likesCount} likes
+          {likes} likes
         </Typography>
       </CardContent>
     </Card>

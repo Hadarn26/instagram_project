@@ -10,14 +10,19 @@ import { ROUTES } from "../../../config/router/routes";
 import { useState } from "react";
 import Header from "../../Header/Header";
 import { createPost } from "../../../services/api";
+import { useCurrentUser } from "../../../hooks/core/useCurrentUser";
 
 function CreatePost() {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
 
+  const { data: user } = useCurrentUser();
+
 const handleCreate = async () => {
+  if (!user) return;
+
   try {
-    await createPost(imageUrl);
+    await createPost(imageUrl, user.id);
     navigate(ROUTES.HOME);
   } catch (error) {
     console.error(error);
