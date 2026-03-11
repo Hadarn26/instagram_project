@@ -8,8 +8,6 @@ import { ConfigModule } from './core/config/config.module';
 import { LoggerModule } from './core/customLogger/customLogger.module';
 import { PostsController } from './posts/posts.controller';
 import { PostsService } from './posts/posts.service';
-import { LikesController } from './likes/likes.controller';
-import { LikesService } from './likes/likes.service';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 
@@ -20,7 +18,7 @@ import { UsersService } from './users/users.service';
     ThrottlerModule,
     LoggerModule,
   ],
-  controllers: [HealthController, PostsController, LikesController, UsersController],
+  controllers: [HealthController, PostsController, UsersController],
   providers: [
     //* When adding a guard to AppModule, if you add it with `provide: APP_GUARD`, it will be global
     {
@@ -28,8 +26,7 @@ import { UsersService } from './users/users.service';
       useClass: ThrottlerGuard,
     },
     PostsService,
-    LikesService,
     UsersService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

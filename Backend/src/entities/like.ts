@@ -5,12 +5,12 @@ import { Post } from "./post";
 @Entity()
 export class Like {
 
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @ManyToOne(() => User, user => user.likes)
-  user: User;
+    @ManyToOne(() => User, user => user.likes)
+    user: User;
 
-  @ManyToOne(() => Post, post => post.likes)
-  post: Post;
+    @ManyToOne(() => Post, post => post.likes)
+    post: Post;
 }
