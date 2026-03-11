@@ -4,11 +4,16 @@ import { getPosts } from "../../../services/api";
 import Header from "../../Header/Header";
 import BottomNav from "../../BottomNav/BottomNav";
 import PostCard from "../../Posts/PostCard";
+import { useCurrentUser } from "../../../hooks/core/useCurrentUser";
 
 function Home() {
+
+  const { data: user } = useCurrentUser();
+
   const { data: posts = [], isLoading, isError } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["posts" , user?.id],
+    queryFn: () => getPosts(user.id),
+    enabled: !!user,
   });
 
   return (
