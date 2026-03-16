@@ -2,7 +2,7 @@ import { Box, Avatar, Typography } from "@mui/material";
 import Header from "../../Header/Header";
 import PostCard from "../../Posts/PostCard";
 import { useQuery } from "@tanstack/react-query";
-import { getPosts } from "../../../services/api";
+import { getPosts } from "../../../services/post";
 import BottomNav from "../../BottomNav/BottomNav";
 import { useCurrentUser } from "../../../hooks/core/useCurrentUser";
 import PersonIcon from "@mui/icons-material/Person";

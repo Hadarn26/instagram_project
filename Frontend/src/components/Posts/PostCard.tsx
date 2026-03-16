@@ -9,10 +9,8 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toggleLike } from "../../services/api";
+import { useToggleLikeMutation } from "../../services/post";
 import { useCurrentUser } from "../../hooks/core/useCurrentUser";
-import { useState } from "react";
 
 type PostCardProps = {
     post: {
@@ -31,25 +29,11 @@ type PostCardProps = {
 
 export default function PostCard({ post }: PostCardProps) {
     const { data: user } = useCurrentUser();
-    const queryClient = useQueryClient();
-
-    const [likes, setLikes] = useState(post.likesCount);
-    const [liked, setLiked] = useState(post.likedByCurrentUser);
-
-    const mutation = useMutation({
-        mutationFn: () => toggleLike(post.id, user?.id),
-
-        onSuccess: (data) => {
-            setLiked(data.liked);
-            setLikes(data.likesCount);
-
-            queryClient.invalidateQueries({ queryKey: ["posts"] });
-        },
-    });
+    const mutation = useToggleLikeMutation();
 
     const handleLike = () => {
         if (!user) return;
-        mutation.mutate();
+        mutation.mutate({ postId: post.id, userId: user.id });
     };
 
     return (
@@ -89,7 +73,7 @@ export default function PostCard({ post }: PostCardProps) {
 
             <CardContent sx={{ py: 1 }}>
                 <IconButton onClick={handleLike}>
-                    {liked ? (
+                    {post.likedByCurrentUser ? (
                         <FavoriteIcon sx={{ color: "red" }} />
                     ) : (
                         <FavoriteBorderIcon />
@@ -97,7 +81,7 @@ export default function PostCard({ post }: PostCardProps) {
                 </IconButton>
 
                 <Typography variant="body2">
-                    {likes} likes
+                    {post.likesCount} likes
                 </Typography>
             </CardContent>
         </Card>

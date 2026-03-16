@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getPosts } from "../../../services/api";
+import { getPosts } from "../../../services/post";
 import Header from "../../Header/Header";
 import BottomNav from "../../BottomNav/BottomNav";
 import PostCard from "../../Posts/PostCard";
