@@ -7,12 +7,23 @@ import { RouterProvider } from "react-router-dom";
 import "./index.scss";
 import queryClient from "./config/queries/queryClient";
 import { router } from "./config/router/router";
+import { useLoadUser } from "./hooks/core/useLoadUser";
+
+function Root() {
+  useLoadUser(); 
+
+  return (
+    <>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </>
+  );
+}
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <CssBaseline />
-      <RouterProvider router={router} />
+      <Root />
     </QueryClientProvider>
   </React.StrictMode>
 );
