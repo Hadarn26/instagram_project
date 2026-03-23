@@ -2,13 +2,13 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Paper,
-  Avatar
+  Avatar,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
-import { getNavigateValue } from "./NavigateValue";
+import { useGetNavigatePathValue } from "./hooks/useGetNavigatePathValue";
 import { paperStyles, avatarStyles } from "./BottomNavStyle";
 import { bottomNavItems } from "./BottomNav.utils";
 import { userAtom } from "../../../store/userAtom";
@@ -37,7 +37,7 @@ export const BottomNav = () => {
 
   return (
     <Paper elevation={3} sx={paperStyles}>
-      <BottomNavigation value={getNavigateValue()} showLabels={false}>
+      <BottomNavigation value={useGetNavigatePathValue()} showLabels={false}>
         {bottomNavItems.map((item) => (
           <BottomNavigationAction
             key={item.route}

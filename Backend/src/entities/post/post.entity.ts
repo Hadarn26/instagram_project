@@ -1,20 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
-import { User } from "../user/user.entity";
-import { Like } from "../like/like.entity";
-import { IPost } from "./post.interface";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { User } from '../user/user.entity';
+import { Like } from '../like/like.entity';
+import { IPost } from './post.interface';
 
 @Entity()
 export class Post implements IPost {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  imageUrl: string;
 
-    @Column()
-    imageUrl: string;
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 
-    @ManyToOne(() => User, user => user.posts)
-    user: User;
-
-    @OneToMany(() => Like, like => like.post)
-    likes: Like[];
+  @OneToMany(() => Like, (like) => like.post)
+  likes: Like[];
 }

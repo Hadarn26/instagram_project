@@ -8,7 +8,7 @@ import { ConfigModule } from './core/config/config.module';
 import { LoggerModule } from './core/customLogger/customLogger.module';
 import { PostsModule } from './feature/posts/posts.module';
 import { UsersModule } from './feature/users/users.module';
-import { LikesModule } from "./feature/likes/likes.module";
+import { LikesModule } from './feature/likes/likes.module';
 
 @Module({
   imports: [
@@ -29,4 +29,4 @@ import { LikesModule } from "./feature/likes/likes.module";
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

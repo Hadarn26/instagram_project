@@ -1,22 +1,27 @@
 import { Post } from '../../../entities/post/post.entity';
 import { Like } from '../../../entities/like/like.entity';
-import { User } from '../../../entities/user/user.entity';
+import type { IPost } from '../../../entities/post/post.interface';
+import type { IUser } from '../../../entities/user/user.interface';
 
 export class PostFeedDto {
-  id: Post['id'];
-  imageUrl: Post['imageUrl'];
+  id: IPost['id'];
+  imageUrl: IPost['imageUrl'];
   user: {
-    id: User['id'];
-    username: string;
-    profileImg: string | null;
+    id: IUser['id'];
+    username: IUser['username'];
+    profileImg: IUser['profileImg'];
   };
   likesCount: number;
   isLikedByCurrentUser: boolean;
 
   constructor(
-    id: Post['id'],
+    id: IPost['id'],
     imageUrl: string,
-    user: { id: User['id']; username: string; profileImg: string | null },
+    user: {
+      id: IUser['id'];
+      username: IUser['username'];
+      profileImg: IUser['profileImg'];
+    },
     likesCount: number,
     isLikedByCurrentUser: boolean,
   ) {
@@ -27,7 +32,7 @@ export class PostFeedDto {
     this.isLikedByCurrentUser = isLikedByCurrentUser;
   }
 
-  static fromEntity(post: Post, currentUserId: User['id']): PostFeedDto {
+  static fromEntity(post: Post, currentUserId: IUser['id']): PostFeedDto {
     return new PostFeedDto(
       post.id,
       post.imageUrl,
@@ -41,7 +46,10 @@ export class PostFeedDto {
     );
   }
 
-  static fromEntities(posts: Post[], currentUserId: User['id']): PostFeedDto[] {
+  static fromEntities(
+    posts: Post[],
+    currentUserId: IUser['id'],
+  ): PostFeedDto[] {
     return posts.map((post) => this.fromEntity(post, currentUserId));
   }
 }

@@ -1,6 +1,6 @@
-import { User } from '../../../entities/user/user.entity';
+import type { IUser } from '../../../entities/user/user.interface';
 
 export class CreatePostDto {
-    imageUrl: string;
-    userId: User['id'];
+  imageUrl: string;
+  userId: IUser['id'];
 }

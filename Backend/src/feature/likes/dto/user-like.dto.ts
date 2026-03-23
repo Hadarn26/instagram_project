@@ -1,5 +1,5 @@
-import { User } from '../../../entities/user/user.entity';
+import type { IUser } from '../../../entities/user/user.interface';
 
 export class UserLikeDto {
-  userId: User['id'];
+  userId: IUser['id'];
 }

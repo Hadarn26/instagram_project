@@ -7,23 +7,23 @@ import { useSetAtom } from "jotai";
 import { userAtom } from "../../store/userAtom";
 
 export function useLoadUser(): UseQueryResult<TUser, Error> {
-    const setUser = useSetAtom(userAtom);
+  const setUser = useSetAtom(userAtom);
 
-    const query = useQuery<TUser, Error>({
-        queryKey: ["currentUser"],
-        queryFn: () => getCurrentUser(1),
-    });
+  const query = useQuery<TUser, Error>({
+    queryKey: ["currentUser"],
+    queryFn: () => getCurrentUser(1),
+  });
 
-    useEffect(() => {
-        if (query.data) {
-            setUser({
-                isAuthenticated: true,
-                id: query.data.id,
-                username: query.data.username,
-                profileImg: query.data.profileImg,
-            });
-        }
-    }, [query.data, setUser]);
+  useEffect(() => {
+    if (query.data) {
+      setUser({
+        isAuthenticated: true,
+        id: query.data.id,
+        username: query.data.username,
+        profileImg: query.data.profileImg,
+      });
+    }
+  }, [query.data, setUser]);
 
-    return query;
+  return query;
 }

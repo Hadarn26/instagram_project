@@ -3,9 +3,9 @@ import { TUser } from "../services/user/types/TypeUser";
 
 export interface IUserStore {
   isAuthenticated: boolean;
-  id: TUser['id'] | null;
-  username?: TUser['username'];
-  profileImg?: TUser['profileImg'];
+  id: TUser["id"] | null;
+  username?: TUser["username"];
+  profileImg?: TUser["profileImg"];
 }
 
 export const userDefaultValue: IUserStore = {

@@ -10,7 +10,7 @@ import { router } from "./config/router/router";
 import { useLoadUser } from "./hooks/core/useLoadUser";
 
 function Root() {
-  useLoadUser(); 
+  useLoadUser();
 
   return (
     <>
@@ -25,5 +25,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <Root />
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,9 +1,10 @@
 import { User } from '../../../entities/user/user.entity';
+import type { IUser } from '../../../entities/user/user.interface';
 
 export class UserProfileDto {
-  id: User['id'];
-  username: User['username'];
-  profileImg: User['profileImg'];
+  id: IUser['id'];
+  username: IUser['username'];
+  profileImg: IUser['profileImg'];
 
   constructor(user: User) {
     this.id = user.id;

@@ -1,5 +1,5 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
-import type { User } from '../../entities/user/user.entity';
+import type { IUser } from '../../entities/user/user.interface';
 import { UsersLogic } from './users.logic';
 import { UserProfileDto } from './dto/user-profile.dto';
 
@@ -9,7 +9,7 @@ export class UsersController {
 
   @Get(':id')
   async getUser(
-    @Param('id', new ParseIntPipe() ) id: User['id'],
+    @Param('id', new ParseIntPipe()) id: IUser['id'],
   ): Promise<UserProfileDto> {
     return this.usersLogic.getUser(id);
   }

@@ -11,7 +11,6 @@ type TUseGetPostsResult = {
 };
 
 export const useGetPosts = (): TUseGetPostsResult => {
-
   const user = useAtomValue(userAtom);
 
   const query = useQuery({

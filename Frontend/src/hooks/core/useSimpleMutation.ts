@@ -5,8 +5,15 @@ import { axiosInstance } from "../../config/queries/axiosInstance";
 export function useSimpleMutation<T>(
   url: string,
   method: Method,
-  options?: UseMutationOptions<AxiosResponse<unknown, unknown>, unknown, T, unknown>
-): ReturnType<typeof useMutation<AxiosResponse<unknown, unknown>, unknown, T, unknown>> {
+  options?: UseMutationOptions<
+    AxiosResponse<unknown, unknown>,
+    unknown,
+    T,
+    unknown
+  >,
+): ReturnType<
+  typeof useMutation<AxiosResponse<unknown, unknown>, unknown, T, unknown>
+> {
   return useMutation({
     mutationFn: (payload: T) =>
       axiosInstance.request({ url, method, data: payload }),

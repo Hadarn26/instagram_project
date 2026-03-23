@@ -5,8 +5,8 @@ import type { TUser } from "../../services/user/types/TypeUser";
 
 export const handleCreatePost = async (
   imageUrl: string,
-  userId: TUser['id'] | null,
-  navigate: NavigateFunction
+  userId: TUser["id"] | null,
+  navigate: NavigateFunction,
 ): Promise<void> => {
   if (!userId) return;
 
