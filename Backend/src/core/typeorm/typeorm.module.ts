@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../../entities/user';
-import { Post } from '../../entities/post';
-import { Like } from '../../entities/like';
+import { User } from '../../entities/user/user.entity';
+import { Post } from '../../entities/post/post.entity';
+import { Like } from '../../entities/like/like.entity';
 
 export const TypeormModule = TypeOrmModule.forRootAsync({
   useFactory: (configService: ConfigService) => ({

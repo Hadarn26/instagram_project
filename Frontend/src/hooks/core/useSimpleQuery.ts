@@ -9,7 +9,7 @@ import { axiosInstance } from "../../config/queries/axiosInstance";
 export function useSimpleQuery<T>(
   url: string,
   queryKey?: string[],
-  options?: UseQueryOptions<T, AxiosError>
+  options?: UseQueryOptions<T, AxiosError>,
 ): UseQueryResult<T, AxiosError> {
   return useQuery<T, AxiosError>({
     queryKey: queryKey ?? url.split("/").filter(Boolean),
